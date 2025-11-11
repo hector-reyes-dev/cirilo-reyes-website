@@ -8,9 +8,32 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<link rel="stylesheet" href={Astro.resolve('../styles/global.css')} />
+		<title>Cirilo Reyes</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="bg-background text-foreground">
+		<main class="mx-auto max-w-3xl p-6 space-y-6">
+			<header class="space-y-2">
+				<h1 class="text-3xl font-bold tracking-tight">Cirilo Reyes</h1>
+				<p class="text-sm text-muted">Tokens de color conectados a Figma (white / black).</p>
+			</header>
+			<section class="grid grid-cols-2 gap-4">
+				<div class="card p-4">
+					<h2 class="font-semibold">Primario</h2>
+					<div class="mt-2 h-10 w-full rounded bg-primary" />
+				</div>
+				<div class="card p-4">
+					<h2 class="font-semibold">Fondo / Texto</h2>
+					<div class="mt-2 flex items-center justify-between gap-2">
+						<span class="bg-background px-3 py-2 rounded border border-border">bg-background</span>
+						<span class="bg-foreground px-3 py-2 rounded text-background">bg-foreground</span>
+					</div>
+				</div>
+			</section>
+			<div class="flex items-center gap-3">
+				<button class="btn">Botón</button>
+				<button class="btn-outline">Botón Borde</button>
+			</div>
+		</main>
 	</body>
 </html>

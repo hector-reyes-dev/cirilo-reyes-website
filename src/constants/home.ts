@@ -1,6 +1,6 @@
 const WHATSAPP_PHONE = '525527743347';
 const WHATSAPP_TEXT =
-  'Hola Cirilo, me gustaría agendar una consulta sobre servicios contables, fiscales o jurídicos.';
+  'Hola Cirilo, me gustaría agendar una consulta sobre servicios contables, auditoría, fiscales o jurídicos.';
 
 export const whatsappPhone = '+52 55 2774 3347';
 export const whatsappLink = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
@@ -25,7 +25,7 @@ export type Service = {
   description: string;
   points: string[];
   icon: string;
-  tone: 'blue' | 'teal' | 'amber';
+  tone: 'blue' | 'teal' | 'amber' | 'slate';
 };
 
 export type ContactItem = {
@@ -35,17 +35,17 @@ export type ContactItem = {
 };
 
 export const pageSeo = {
-  title: 'C.P. y P. en D. Cirilo Reyes Cruz | Servicios contables, fiscales y jurídicos',
+  title: 'C.P. y P. en D. Cirilo Reyes Cruz | Servicios contables, auditoría, fiscales y jurídicos',
   description:
-    'Despacho profesional en Ciudad de México para servicios contables, fiscales y jurídicos. Asesoría integral para personas físicas, morales, emprendedores y empresas.'
+    'Despacho profesional en Tlalnepantla de Baz para servicios contables, auditoría, fiscales y jurídicos. Asesoría integral para personas físicas, morales, emprendedores y empresas.'
 };
 
 export const brand = {
   initials: 'CRC',
   name: 'C.P. y P. en D. Cirilo Reyes Cruz',
   shortName: 'Cirilo Reyes Cruz',
-  descriptor: 'Despacho de Servicios Contables, Fiscales y Jurídicos',
-  location: 'Ciudad de México, CDMX'
+  descriptor: 'Despacho de Servicios Contables, Auditoría, Fiscales y Jurídicos',
+  location: 'Tlalnepantla de Baz, Estado de México'
 };
 
 export const navLinks: NavLink[] = [
@@ -56,11 +56,11 @@ export const navLinks: NavLink[] = [
 ];
 
 export const hero = {
-  badge: 'Despacho Profesional · Ciudad de México',
-  title: 'Soluciones contables, fiscales y jurídicas a tu medida',
-  highlighted: 'contables, fiscales',
+  badge: 'Despacho Profesional · Estado de México',
+  title: 'Soluciones contables, auditoría, fiscales y jurídicas a tu medida',
+  highlighted: 'contables, auditoría, fiscales',
   description:
-    'Más de 15 años de experiencia asesorando a personas físicas y morales en materia contable, fiscal y legal. Tu tranquilidad financiera, nuestra prioridad.',
+    'Más de 30 años de experiencia asesorando personas físicas y morales en materia contable, auditoría, fiscal y 10 años de experiencia en materia legal. Tu tranquilidad financiera, nuestra prioridad.',
   primaryCta: {
     label: 'Solicitar consulta',
     href: '#contacto'
@@ -72,9 +72,8 @@ export const hero = {
 };
 
 export const stats: Stat[] = [
-  { value: '+200', label: 'Clientes satisfechos' },
-  { value: '+15', label: 'Años de experiencia' },
-  { value: '3', label: 'Áreas especializadas' },
+  { value: '+30', label: 'Años de experiencia' },
+  { value: '4', label: 'Áreas especializadas' },
   { value: '100%', label: 'Compromiso y confidencialidad' }
 ];
 
@@ -92,6 +91,20 @@ export const services: Service[] = [
     ],
     icon: '📊',
     tone: 'blue'
+  },
+  {
+    title: 'Servicio de Auditoría',
+    description:
+      'Revisamos el cumplimiento correcto y oportuno de obligaciones fiscales, corporativas y laborales para empresas.',
+    points: [
+      'Auditoría de cumplimiento fiscal',
+      'Revisión de obligaciones SAT',
+      'Auditoría para IMSS e INFONAVIT',
+      'Cumplimiento laboral ante STPS',
+      'Reportes claros para toma de decisiones'
+    ],
+    icon: '🔎',
+    tone: 'slate'
   },
   {
     title: 'Servicios Fiscales',
@@ -128,10 +141,10 @@ export const about = {
   title: 'Experiencia y compromiso a tu servicio',
   intro: 'Somos un despacho multidisciplinario con un enfoque personalizado para cada cliente.',
   credentialTitle: 'Contador Público · Pasante en Derecho',
-  badges: ['IMCP', 'SAT Certificado', 'Barra Mexicana', 'CDMX'],
+  badges: ['IMCP Certificado', 'SAT / C.P. registrado', 'EDOMEX Impuesto sobre Nóminas', 'IMSS Auditor Registrado'],
   heading: 'Un despacho de confianza',
   paragraphs: [
-    'Con formación en Contaduría Pública y Derecho, el C.P. y P. en D. Cirilo Reyes Cruz ofrece una visión integral que combina el rigor financiero con el análisis jurídico, brindando soluciones completas y efectivas.',
+    'Con formación en Contaduría Pública y Derecho, el C.P. y P. en D. Cirilo Reyes Cruz ofrece una visión integral que combina el rigor financiero, la auditoría y el análisis jurídico, brindando soluciones completas y efectivas.',
     'Atendemos a personas físicas, morales, emprendedores y empresas consolidadas, con trato personalizado y respuesta oportuna a cada necesidad.'
   ],
   values: [
@@ -166,9 +179,9 @@ export const contact = {
   errorMessage: 'Por favor completa al menos tu nombre y correo.',
   successMessage: 'Listo. Se abrirá WhatsApp con tu mensaje preparado.',
   items: [
-    { icon: '📍', label: 'Ubicación', value: 'Ciudad de México, CDMX' },
+    { icon: '📍', label: 'Ubicación', value: 'Tlalnepantla de Baz, Estado de México' },
     { icon: '📞', label: 'Teléfono / WhatsApp', value: whatsappPhone },
-    { icon: '✉️', label: 'Correo electrónico', value: 'contacto@cirilo-reyes.mx' },
+    { icon: '✉️', label: 'Correo electrónico', value: 'reyescc1962@gmail.com' },
     { icon: '🕐', label: 'Horario de atención', value: 'Lun - Vie: 9:00 am - 7:00 pm\nSáb: 9:00 am - 1:00 pm' }
   ] satisfies ContactItem[]
 };

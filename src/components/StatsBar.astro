@@ -1,0 +1,14 @@
+---
+import { stats } from '@constants/home';
+---
+
+<section class="stats-bar" aria-label="Indicadores del despacho">
+  <div class="stats-bar__inner content-wrapper">
+    {stats.map((stat) => (
+      <div class="stat-item">
+        <strong>{stat.value}</strong>
+        <span>{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>

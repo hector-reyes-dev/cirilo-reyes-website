@@ -1,0 +1,31 @@
+---
+import SectionHeader from '@components/SectionHeader.astro';
+import { services } from '@constants/home';
+---
+
+<section id="servicios" class="section-block section-block--tinted">
+  <div class="content-wrapper">
+    <SectionHeader
+      tag="Servicios"
+      title="¿En qué podemos ayudarte?"
+      intro="Ofrecemos asesoría integral para que tu empresa o patrimonio esté siempre en orden y protegido."
+    />
+
+    <div class="services-grid">
+      {services.map((service) => (
+        <article class="service-card">
+          <div class={`service-card__icon service-card__icon--${service.tone}`} aria-hidden="true">
+            {service.icon}
+          </div>
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+          <ul>
+            {service.points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

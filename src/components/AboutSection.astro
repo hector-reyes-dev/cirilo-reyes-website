@@ -1,0 +1,39 @@
+---
+import SectionHeader from '@components/SectionHeader.astro';
+import { about, brand } from '@constants/home';
+---
+
+<section id="nosotros" class="section-block">
+  <div class="content-wrapper">
+    <SectionHeader tag={about.tag} title={about.title} intro={about.intro} />
+
+    <div class="about-grid">
+      <aside class="profile-card" aria-label="Perfil profesional">
+        <div class="profile-card__avatar">{brand.initials}</div>
+        <h3>{brand.name}</h3>
+        <p>{about.credentialTitle}</p>
+        <div class="profile-card__badges">
+          {about.badges.map((badge) => (
+            <span>{badge}</span>
+          ))}
+        </div>
+      </aside>
+
+      <div class="about-copy">
+        <h2>{about.heading}</h2>
+        {about.paragraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+
+        <div class="values-grid">
+          {about.values.map((value) => (
+            <article class="value-card">
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

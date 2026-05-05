@@ -1,0 +1,106 @@
+---
+import SectionHeader from '@components/SectionHeader.astro';
+import { contact, whatsappLink } from '@constants/home';
+---
+
+<section id="contacto" class="section-block section-block--tinted">
+  <div class="content-wrapper">
+    <SectionHeader tag={contact.tag} title={contact.title} intro={contact.intro} />
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>{contact.heading}</h3>
+        <p>{contact.description}</p>
+        <div class="contact-list">
+          {contact.items.map((item) => (
+            <div class="contact-item">
+              <span class="contact-item__icon" aria-hidden="true">{item.icon}</span>
+              <div>
+                <span>{item.label}</span>
+                <strong set:html={item.value.replace(/\n/g, '<br />')} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <form class="contact-form" data-contact-form data-whatsapp={whatsappLink}>
+        <h3>{contact.formTitle}</h3>
+
+        <div class="form-field">
+          <label for="f-nombre">Nombre completo</label>
+          <input id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" />
+        </div>
+
+        <div class="form-field">
+          <label for="f-email">Correo electrónico</label>
+          <input id="f-email" name="email" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
+        </div>
+
+        <div class="form-field">
+          <label for="f-servicio">Servicio de interés</label>
+          <select id="f-servicio" name="servicio">
+            <option value="">Selecciona una opción</option>
+            <option>Contable</option>
+            <option>Fiscal</option>
+            <option>Jurídico</option>
+            <option>Integral (varios servicios)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="f-msg">Mensaje</label>
+          <textarea id="f-msg" name="mensaje" placeholder="Cuéntanos brevemente en qué podemos ayudarte..."></textarea>
+        </div>
+
+        <button class="button contact-form__submit" type="submit">{contact.submitLabel}</button>
+        <p class="form-feedback" data-form-feedback role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ errorMessage: contact.errorMessage, successMessage: contact.successMessage }}>
+  const form = document.querySelector('[data-contact-form]');
+  const feedback = document.querySelector('[data-form-feedback]');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const data = new FormData(form);
+    const nombre = String(data.get('nombre') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const servicio = String(data.get('servicio') || '').trim();
+    const mensaje = String(data.get('mensaje') || '').trim();
+
+    if (!nombre || !email) {
+      if (feedback) {
+        feedback.textContent = errorMessage;
+        feedback.classList.remove('is-success');
+        feedback.classList.add('is-error');
+      }
+      return;
+    }
+
+    const lines = [
+      'Hola Cirilo, me gustaría agendar una consulta.',
+      `Nombre: ${nombre}`,
+      `Correo: ${email}`,
+      servicio ? `Servicio de interés: ${servicio}` : '',
+      mensaje ? `Mensaje: ${mensaje}` : ''
+    ].filter(Boolean);
+
+    const baseUrl = form.getAttribute('data-whatsapp') || 'https://wa.me/525527743347';
+    const url = new URL(baseUrl);
+    url.searchParams.set('text', lines.join('\n'));
+
+    if (feedback) {
+      feedback.textContent = successMessage;
+      feedback.classList.remove('is-error');
+      feedback.classList.add('is-success');
+    }
+
+    window.open(url.toString(), '_blank', 'noopener,noreferrer');
+    form.reset();
+  });
+</script>

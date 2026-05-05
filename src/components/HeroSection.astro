@@ -1,0 +1,21 @@
+---
+import { hero } from '@constants/home';
+
+const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlighted);
+---
+
+<section id="inicio" class="hero-section">
+  <div class="hero-section__inner content-wrapper">
+    <p class="eyebrow">{hero.badge}</p>
+    <h1>
+      {beforeHighlight}
+      <span>{hero.highlighted}</span>
+      {afterHighlight}
+    </h1>
+    <p class="hero-section__copy">{hero.description}</p>
+    <div class="hero-section__actions">
+      <a class="button" href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
+      <a class="button button--outline" href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
+    </div>
+  </div>
+</section>

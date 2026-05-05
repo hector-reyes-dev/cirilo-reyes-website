@@ -1,0 +1,37 @@
+---
+import { brand, navLinks, hero } from '@constants/home';
+---
+
+<header class="site-header">
+  <div class="site-header__inner content-wrapper">
+    <a class="brand-mark" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark__icon">{brand.initials}</span>
+      <span class="brand-mark__text">{brand.name}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navegacion principal">
+      {navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <a class="button button--compact site-header__cta" href={hero.primaryCta.href}>
+      Consulta gratis
+    </a>
+
+    <details class="mobile-menu">
+      <summary aria-label="Abrir menu">
+        <span>Menu</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M5 7.5 10 12.5 15 7.5" />
+        </svg>
+      </summary>
+      <div class="mobile-menu__panel">
+        {navLinks.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))}
+        <a class="button" href={hero.primaryCta.href}>Consulta gratis</a>
+      </div>
+    </details>
+  </div>
+</header>

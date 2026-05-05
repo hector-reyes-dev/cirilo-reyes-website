@@ -5,6 +5,7 @@ const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlighted);
 ---
 
 <section id="inicio" class="hero-section">
+  <canvas class="hero-section__ledger" data-hero-ledger aria-hidden="true"></canvas>
   <div class="hero-section__inner content-wrapper">
     <p class="eyebrow">{hero.badge}</p>
     <h1>
@@ -19,3 +20,135 @@ const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlighted);
     </div>
   </div>
 </section>
+
+<script>
+  const canvas = document.querySelector('[data-hero-ledger]');
+  const heroSection = canvas?.closest('.hero-section');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (canvas instanceof HTMLCanvasElement && heroSection && !prefersReducedMotion) {
+    const context = canvas.getContext('2d');
+    let frameId = 0;
+    let width = 0;
+    let height = 0;
+    let pointerX = 0.5;
+    let pointerY = 0.5;
+    let targetX = 0.5;
+    let targetY = 0.5;
+    let isRunning = false;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      const rect = heroSection.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context?.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
+
+    const draw = () => {
+      if (!isRunning) return;
+      if (!context) return;
+
+      pointerX += (targetX - pointerX) * 0.045;
+      pointerY += (targetY - pointerY) * 0.045;
+
+      context.clearRect(0, 0, width, height);
+      context.save();
+      context.translate((pointerX - 0.5) * 18, (pointerY - 0.5) * 12);
+
+      const columns = 9;
+      const rows = 7;
+      const cellW = width / columns;
+      const cellH = height / rows;
+
+      context.strokeStyle = 'rgba(21, 101, 192, 0.105)';
+      context.lineWidth = 1;
+
+      for (let col = 1; col < columns; col += 1) {
+        const x = col * cellW;
+        context.beginPath();
+        context.moveTo(x, height * 0.08);
+        context.lineTo(x, height * 0.9);
+        context.stroke();
+      }
+
+      for (let row = 1; row < rows; row += 1) {
+        const y = row * cellH;
+        context.beginPath();
+        context.moveTo(width * 0.05, y);
+        context.lineTo(width * 0.95, y);
+        context.stroke();
+      }
+
+      context.strokeStyle = 'rgba(13, 71, 161, 0.18)';
+      context.lineWidth = 1.4;
+      context.beginPath();
+      context.moveTo(width * 0.12, height * 0.72);
+      context.bezierCurveTo(width * 0.28, height * 0.46, width * 0.48, height * 0.62, width * 0.64, height * 0.36);
+      context.bezierCurveTo(width * 0.74, height * 0.2, width * 0.84, height * 0.26, width * 0.91, height * 0.16);
+      context.stroke();
+
+      context.fillStyle = 'rgba(13, 71, 161, 0.2)';
+      for (const [x, y] of [
+        [0.28, 0.46],
+        [0.64, 0.36],
+        [0.91, 0.16]
+      ]) {
+        context.beginPath();
+        context.arc(width * x, height * y, 3.5, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      context.restore();
+      if (isRunning) {
+        frameId = window.requestAnimationFrame(draw);
+      }
+    };
+
+    const start = () => {
+      if (isRunning) return;
+      isRunning = true;
+      draw();
+    };
+
+    const stop = () => {
+      isRunning = false;
+      window.cancelAnimationFrame(frameId);
+    };
+
+    resize();
+    start();
+
+    window.addEventListener('resize', resize, { passive: true });
+    heroSection.addEventListener('pointermove', (event) => {
+      const rect = heroSection.getBoundingClientRect();
+      targetX = (event.clientX - rect.left) / rect.width;
+      targetY = (event.clientY - rect.top) / rect.height;
+    });
+    heroSection.addEventListener('pointerleave', () => {
+      targetX = 0.5;
+      targetY = 0.5;
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
+      }
+    });
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        start();
+      } else {
+        stop();
+      }
+    });
+
+    observer.observe(heroSection);
+  }
+</script>

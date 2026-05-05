@@ -24,17 +24,17 @@ import { contact, whatsappLink } from '@constants/home';
         </div>
       </div>
 
-      <form class="contact-form" data-contact-form data-whatsapp={whatsappLink}>
+      <form class="contact-form" data-contact-form data-whatsapp={whatsappLink} novalidate>
         <h3>{contact.formTitle}</h3>
 
         <div class="form-field">
           <label for="f-nombre">Nombre completo</label>
-          <input id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" />
+          <input id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" data-required-field />
         </div>
 
         <div class="form-field">
           <label for="f-email">Correo electrónico</label>
-          <input id="f-email" name="email" type="email" placeholder="tucorreo@email.com" autocomplete="email" />
+          <input id="f-email" name="email" type="email" placeholder="tucorreo@email.com" autocomplete="email" data-required-field />
         </div>
 
         <div class="form-field">
@@ -54,6 +54,9 @@ import { contact, whatsappLink } from '@constants/home';
         </div>
 
         <button class="button contact-form__submit" type="submit">{contact.submitLabel}</button>
+        <div class="contact-form__readiness" aria-hidden="true">
+          <span data-form-readiness></span>
+        </div>
         <p class="form-feedback" data-form-feedback role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -63,6 +66,40 @@ import { contact, whatsappLink } from '@constants/home';
 <script define:vars={{ errorMessage: contact.errorMessage, successMessage: contact.successMessage }}>
   const form = document.querySelector('[data-contact-form]');
   const feedback = document.querySelector('[data-form-feedback]');
+  const readiness = document.querySelector('[data-form-readiness]');
+
+  const setFeedback = (message, type) => {
+    if (!feedback) return;
+
+    feedback.textContent = message;
+    feedback.classList.toggle('is-error', type === 'error');
+    feedback.classList.toggle('is-success', type === 'success');
+  };
+
+  const updateReadiness = () => {
+    if (!(form instanceof HTMLFormElement) || !(readiness instanceof HTMLElement)) return;
+
+    const fields = Array.from(form.querySelectorAll('[data-required-field]'));
+    const completed = fields.filter((field) => {
+      if (!(field instanceof HTMLInputElement)) return false;
+      return field.value.trim().length > 0;
+    }).length;
+
+    readiness.style.transform = `scaleX(${fields.length ? completed / fields.length : 0})`;
+  };
+
+  form?.addEventListener('input', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    target.classList.toggle('has-value', target.value.trim().length > 0);
+    updateReadiness();
+    if (feedback?.classList.contains('is-error')) {
+      setFeedback('', '');
+    }
+  });
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -74,11 +111,8 @@ import { contact, whatsappLink } from '@constants/home';
     const mensaje = String(data.get('mensaje') || '').trim();
 
     if (!nombre || !email) {
-      if (feedback) {
-        feedback.textContent = errorMessage;
-        feedback.classList.remove('is-success');
-        feedback.classList.add('is-error');
-      }
+      setFeedback(errorMessage, 'error');
+      updateReadiness();
       return;
     }
 
@@ -94,13 +128,13 @@ import { contact, whatsappLink } from '@constants/home';
     const url = new URL(baseUrl);
     url.searchParams.set('text', lines.join('\n'));
 
-    if (feedback) {
-      feedback.textContent = successMessage;
-      feedback.classList.remove('is-error');
-      feedback.classList.add('is-success');
-    }
+    setFeedback(successMessage, 'success');
 
     window.open(url.toString(), '_blank', 'noopener,noreferrer');
     form.reset();
+    form.querySelectorAll('.has-value').forEach((field) => field.classList.remove('has-value'));
+    updateReadiness();
   });
+
+  updateReadiness();
 </script>

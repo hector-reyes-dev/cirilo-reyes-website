@@ -11,9 +11,9 @@ import { services } from '@constants/home';
       intro="Ofrecemos asesoría integral para que tu empresa o patrimonio esté siempre en orden y protegido."
     />
 
-    <div class="services-grid">
-      {services.map((service) => (
-        <article class="service-card">
+    <div class="services-grid" data-services-grid>
+      {services.map((service, index) => (
+        <article class="service-card" style={`--card-index: ${index}`}>
           <div class={`service-card__icon service-card__icon--${service.tone}`} aria-hidden="true">
             {service.icon}
           </div>
@@ -29,3 +29,28 @@ import { services } from '@constants/home';
     </div>
   </div>
 </section>
+
+<script>
+  const servicesGrid = document.querySelector('[data-services-grid]');
+  const serviceCards = Array.from(document.querySelectorAll('.service-card'));
+
+  if (servicesGrid instanceof HTMLElement) {
+    serviceCards.forEach((card) => {
+      if (!(card instanceof HTMLElement)) return;
+
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--pointer-x', `${event.clientX - rect.left}px`);
+        card.style.setProperty('--pointer-y', `${event.clientY - rect.top}px`);
+      });
+
+      card.addEventListener('pointerenter', () => {
+        serviceCards.forEach((candidate) => candidate.classList.toggle('is-muted', candidate !== card));
+      });
+
+      card.addEventListener('pointerleave', () => {
+        serviceCards.forEach((candidate) => candidate.classList.remove('is-muted'));
+      });
+    });
+  }
+</script>

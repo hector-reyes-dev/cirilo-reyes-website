@@ -1,0 +1,51 @@
+<button
+  class="theme-toggle"
+  type="button"
+  aria-label="Cambiar a tema oscuro"
+  title="Cambiar a tema oscuro"
+  data-theme-toggle
+>
+  <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="3.5" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+  </svg>
+  <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z" />
+  </svg>
+  <span class="sr-only" data-theme-toggle-label>Cambiar a tema oscuro</span>
+</button>
+
+<script>
+  const storageKey = 'cirilo-theme';
+  const toggle = document.querySelector('[data-theme-toggle]');
+  const label = toggle?.querySelector('[data-theme-toggle-label]');
+
+  const updateToggle = () => {
+    if (!(toggle instanceof HTMLButtonElement)) return;
+
+    const currentTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    const nextTheme = currentTheme === 'dark' ? 'claro' : 'oscuro';
+    const accessibleLabel = `Cambiar a tema ${nextTheme}`;
+
+    toggle.setAttribute('aria-label', accessibleLabel);
+    toggle.setAttribute('title', accessibleLabel);
+    if (label) label.textContent = accessibleLabel;
+  };
+
+  toggle?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.dataset.theme = nextTheme;
+    try {
+      localStorage.setItem(storageKey, nextTheme);
+    } catch {
+      // The selected theme still applies when storage is unavailable.
+    }
+
+    updateToggle();
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: nextTheme } }));
+  });
+
+  updateToggle();
+</script>

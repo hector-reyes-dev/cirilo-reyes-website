@@ -65,7 +65,12 @@ const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlighted);
       const cellW = width / columns;
       const cellH = height / rows;
 
-      context.strokeStyle = 'rgba(21, 101, 192, 0.105)';
+      const heroStyles = getComputedStyle(heroSection);
+      const ledgerGrid = heroStyles.getPropertyValue('--ledger-grid').trim();
+      const ledgerLine = heroStyles.getPropertyValue('--ledger-line').trim();
+      const ledgerPoint = heroStyles.getPropertyValue('--ledger-point').trim();
+
+      context.strokeStyle = ledgerGrid;
       context.lineWidth = 1;
 
       for (let col = 1; col < columns; col += 1) {
@@ -84,7 +89,7 @@ const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlighted);
         context.stroke();
       }
 
-      context.strokeStyle = 'rgba(13, 71, 161, 0.18)';
+      context.strokeStyle = ledgerLine;
       context.lineWidth = 1.4;
       context.beginPath();
       context.moveTo(width * 0.12, height * 0.72);
@@ -92,7 +97,7 @@ const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlighted);
       context.bezierCurveTo(width * 0.74, height * 0.2, width * 0.84, height * 0.26, width * 0.91, height * 0.16);
       context.stroke();
 
-      context.fillStyle = 'rgba(13, 71, 161, 0.2)';
+      context.fillStyle = ledgerPoint;
       for (const [x, y] of [
         [0.28, 0.46],
         [0.64, 0.36],

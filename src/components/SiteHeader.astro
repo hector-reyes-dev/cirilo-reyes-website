@@ -1,5 +1,6 @@
 ---
 import { brand, navLinks, hero } from '@constants/home';
+import ThemeToggle from '@components/ThemeToggle.astro';
 ---
 
 <header class="site-header">
@@ -14,6 +15,8 @@ import { brand, navLinks, hero } from '@constants/home';
         <a href={link.href}>{link.label}</a>
       ))}
     </nav>
+
+    <ThemeToggle />
 
     <a class="button button--compact site-header__cta" href={hero.primaryCta.href}>
       Consulta gratis

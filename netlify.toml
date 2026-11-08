@@ -1,0 +1,5 @@
+# Solo cabeceras. Los ajustes de build viven en el panel de Netlify.
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"

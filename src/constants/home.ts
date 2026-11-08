@@ -157,6 +157,105 @@ export const services: Service[] = [
   }
 ];
 
+export type FaqItem = { question: string; answer: string };
+
+export type ServicePage = {
+  slug: string;
+  /** Posición en services[]: título, puntos e icono salen de ahí. */
+  serviceIndex: number;
+  h1: string;
+  metaTitle: string;
+  metaDescription: string;
+  intro: string;
+  faq: FaqItem[];
+};
+
+// TODO(Cirilo): validar los textos de las páginas de servicio antes de publicar (el PR queda en borrador).
+// TODO(Cirilo): preguntas omitidas hasta que responda; NO se renderizan:
+//   contabilidad «¿Cómo empiezo?» (primer paso real: llamada, WhatsApp, documentos que se piden).
+//   fiscal «¿Qué es la planeación fiscal?» (definición en 1–2 frases conforme a la legislación vigente).
+//   jurídico «¿Qué pasa si necesito defensa fiscal o un amparo?» (alcance real y si se canaliza a abogado titulado).
+// TODO(Cirilo): validar respuestas mostradas: auditoría (alcance y entregables), fiscal (redacción del
+//   requerimiento; condiciones de devoluciones y compensaciones), jurídico (alcance de la constitución y quién firma).
+// TODO(Cirilo): jurídico, confirmar alcance y si algún trámite se canaliza a abogado titulado (no se muestra).
+export const servicePages: ServicePage[] = [
+  {
+    slug: 'contabilidad',
+    serviceIndex: 0,
+    h1: 'Servicios contables en Tlalnepantla de Baz',
+    metaTitle: 'Servicios contables en Tlalnepantla | Cirilo Reyes',
+    metaDescription:
+      'Contabilidad general y de costos, estados financieros, nómina y CFDI para personas físicas y empresas en Tlalnepantla de Baz.',
+    intro:
+      'Llevamos la contabilidad de tu empresa con rigor y precisión, conforme a las disposiciones vigentes: contabilidad general y de costos, estados financieros mensuales y anuales, conciliaciones bancarias, nómina con CFDI de nómina y control de activos fijos. Atendemos a personas físicas, morales y emprendedores en Tlalnepantla de Baz y el Estado de México.',
+    faq: [
+      {
+        question: '¿Qué incluye la contabilidad mensual?',
+        answer:
+          'Contabilidad general y de costos, estados financieros mensuales y anuales, conciliaciones bancarias, nómina y CFDI de nómina y control de activos fijos.'
+      },
+      {
+        question: '¿Atienden a personas físicas y a empresas?',
+        answer: 'Sí: personas físicas, morales, emprendedores y empresas consolidadas.'
+      }
+    ]
+  },
+  {
+    slug: 'auditoria',
+    serviceIndex: 1,
+    h1: 'Auditoría de cumplimiento fiscal, IMSS e INFONAVIT',
+    metaTitle: 'Auditoría fiscal, IMSS e INFONAVIT | Cirilo Reyes',
+    metaDescription:
+      'Revisión de cumplimiento de obligaciones fiscales, laborales y de seguridad social para empresas en Estado de México.',
+    intro:
+      'Revisamos que tu empresa cumpla de forma correcta y oportuna sus obligaciones fiscales, corporativas y laborales ante el SAT, el IMSS, el INFONAVIT y la STPS. Recibes reportes claros para tomar decisiones. Atendemos empresas en Tlalnepantla de Baz y el Estado de México.',
+    faq: [
+      {
+        question: '¿Qué revisa una auditoría de cumplimiento?',
+        answer: 'Obligaciones fiscales ante el SAT, IMSS e INFONAVIT y cumplimiento laboral ante STPS.'
+      },
+      { question: '¿Qué recibo al terminar?', answer: 'Reportes claros para la toma de decisiones.' }
+    ]
+  },
+  {
+    slug: 'fiscal',
+    serviceIndex: 2,
+    h1: 'Servicios fiscales y atención al SAT',
+    metaTitle: 'Servicios fiscales y atención al SAT | Cirilo Reyes',
+    metaDescription:
+      'Declaraciones, requerimientos del SAT, devoluciones, compensaciones y planeación fiscal en Tlalnepantla de Baz.',
+    intro:
+      'Te ayudamos a cumplir tus obligaciones ante el SAT: declaraciones mensuales y anuales, atención de requerimientos, devoluciones y compensaciones, planeación fiscal y facturación electrónica (CFDI). Atendemos a personas físicas, morales, emprendedores y empresas en Tlalnepantla de Baz y el Estado de México.',
+    faq: [
+      {
+        question: '¿Qué hago si el SAT me envía un requerimiento?',
+        answer:
+          'No lo ignores: el propio documento indica el plazo para responder. Reúne el documento y contáctanos para revisarlo y atenderlo a tiempo.'
+      },
+      {
+        question: '¿Pueden ayudarme con devoluciones o compensaciones de impuestos?',
+        answer: 'Sí, es parte de los servicios fiscales.'
+      }
+    ]
+  },
+  {
+    slug: 'juridico',
+    serviceIndex: 3,
+    h1: 'Asesoría jurídica empresarial y fiscal',
+    metaTitle: 'Asesoría jurídica empresarial | Cirilo Reyes',
+    metaDescription:
+      'Constitución de sociedades, contratos, defensa fiscal y amparos en materia fiscal. Atención en Tlalnepantla de Baz.',
+    intro:
+      'Asesoría legal empresarial y patrimonial para proteger tus intereses: constitución y disolución de sociedades, contratos mercantiles y civiles, defensa fiscal ante el SAT, amparos en materia fiscal y asesoría laboral. Atendemos en Tlalnepantla de Baz y el Estado de México.',
+    faq: [
+      {
+        question: '¿Pueden constituir mi empresa?',
+        answer: 'Constitución y disolución de sociedades forma parte del servicio.'
+      }
+    ]
+  }
+];
+
 export const about = {
   tag: 'Nosotros',
   title: 'Experiencia y compromiso a tu servicio',

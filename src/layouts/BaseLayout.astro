@@ -4,12 +4,19 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  canonical?: boolean;
 }
 
 const {
   title = 'Cirilo Reyes | Consultoría contable, fiscal y jurídica',
-  description = 'Asesoría integral preventiva para empresas que buscan rigor técnico y agilidad boutique.'
+  description = 'Asesoría integral preventiva para empresas que buscan rigor técnico y agilidad boutique.',
+  image,
+  canonical = true
 } = Astro.props as Props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = image ? new URL(image, Astro.site).href : undefined;
 ---
 <!DOCTYPE html>
 <html lang="es" class="bg-background text-foreground">
@@ -35,7 +42,10 @@ const {
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,7 +56,10 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
+    {canonical && <meta property="og:url" content={canonicalUrl} />}
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
     <meta name="twitter:card" content="summary_large_image" />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased">
     <a href="#contenido" class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:rounded focus:px-4 focus:py-2">

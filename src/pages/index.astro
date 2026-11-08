@@ -10,7 +10,12 @@ import SiteFooter from '@components/SiteFooter.astro';
 import { pageSeo } from '@constants/home';
 ---
 
-<BaseLayout title={pageSeo.title} description={pageSeo.description}>
+<BaseLayout
+  title={pageSeo.title}
+  description={pageSeo.description}
+  image="/og-image.png"
+  imageAlt="C.P. y P. en D. Cirilo Reyes Cruz — Servicios contables, auditoría, fiscales y jurídicos"
+>
   <SiteHeader />
   <main id="contenido">
     <HeroSection />

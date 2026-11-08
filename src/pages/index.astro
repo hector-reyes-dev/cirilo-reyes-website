@@ -11,7 +11,13 @@ import { pageSeo } from '@constants/home';
 import { jsonLd } from '@constants/seo';
 ---
 
-<BaseLayout title={pageSeo.title} description={pageSeo.description} jsonLd={jsonLd}>
+<BaseLayout
+  title={pageSeo.title}
+  description={pageSeo.description}
+  image="/og-image.png"
+  imageAlt="C.P. y P. en D. Cirilo Reyes Cruz — Servicios contables, auditoría, fiscales y jurídicos"
+  jsonLd={jsonLd}
+>
   <SiteHeader />
   <main id="contenido">
     <HeroSection />

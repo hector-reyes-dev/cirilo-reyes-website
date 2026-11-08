@@ -45,6 +45,14 @@ export const address = {
 
 export const geo = { latitude: 19.5178364, longitude: -99.2231914 };
 
+// Fuente única del horario: el texto visible y el JSON-LD salen de aquí.
+export const hours = {
+  text: 'Lun - Sáb: 8:00 am - 6:00 pm',
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  opens: '08:00',
+  closes: '18:00'
+};
+
 export const mapUrl = 'https://maps.app.goo.gl/NDB7nZM3Jjhnsm9JA';
 
 export const pageSeo = {
@@ -204,6 +212,6 @@ export const contact = {
     },
     { icon: '📞', label: 'Teléfono / WhatsApp', value: whatsappPhone },
     { icon: '✉️', label: 'Correo electrónico', value: 'reyescc1962@gmail.com' },
-    { icon: '🕐', label: 'Horario de atención', value: 'Lun - Vie: 9:00 am - 7:00 pm\nSáb: 9:00 am - 1:00 pm' }
+    { icon: '🕐', label: 'Horario de atención', value: hours.text }
   ] satisfies ContactItem[]
 };

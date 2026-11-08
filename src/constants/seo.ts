@@ -1,4 +1,4 @@
-import { address, brand, contact, geo, mapUrl, pageSeo, services, whatsappPhone } from './home';
+import { address, brand, contact, geo, hours, mapUrl, pageSeo, services, whatsappPhone } from './home';
 
 const SITE = 'https://ciriloreyes.com/';
 const BUSINESS_ID = `${SITE}#negocio`;
@@ -25,6 +25,12 @@ export const jsonLd = {
       },
       geo: { '@type': 'GeoCoordinates', latitude: geo.latitude, longitude: geo.longitude },
       hasMap: mapUrl,
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: hours.days,
+        opens: hours.opens,
+        closes: hours.closes
+      },
       areaServed: [
         { '@type': 'City', name: address.locality },
         { '@type': 'AdministrativeArea', name: address.region }

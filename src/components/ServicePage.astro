@@ -43,7 +43,7 @@ const others = servicePages.filter((candidate) => candidate.slug !== page.slug);
     <div class="content-wrapper service-block__grid">
       <h2 id="que-incluye"><span class="service-block__num" aria-hidden="true">01</span>Qué incluye</h2>
       <ul class="service-list">
-        {service?.points.map((point) => <li>{point}</li>)}
+        {service?.points.map((point) => <li><span class="service-list__check" aria-hidden="true"></span>{point}</li>)}
       </ul>
     </div>
   </section>

@@ -1,4 +1,5 @@
 import { address, brand, contact, geo, hours, mapUrl, pageSeo, services, whatsappPhone } from './home';
+import type { ServicePage } from './home';
 
 const SITE = 'https://ciriloreyes.com/';
 const BUSINESS_ID = `${SITE}#negocio`;
@@ -55,3 +56,34 @@ export const jsonLd = {
     }
   ]
 };
+
+export const servicePageUrl = (page: ServicePage) => `${SITE}servicios/${page.slug}/`;
+
+export function serviceJsonLd(page: ServicePage) {
+  const name = services[page.serviceIndex]?.title ?? page.h1;
+  const url = servicePageUrl(page);
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        name,
+        description: page.intro,
+        provider: { '@id': BUSINESS_ID },
+        areaServed: [
+          { '@type': 'City', name: address.locality },
+          { '@type': 'AdministrativeArea', name: address.region }
+        ],
+        url
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE },
+          { '@type': 'ListItem', position: 2, name, item: url }
+        ]
+      }
+    ]
+  };
+}

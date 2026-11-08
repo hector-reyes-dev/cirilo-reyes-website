@@ -1,24 +1,34 @@
 ---
 import { brand, navLinks, hero } from '@constants/home';
 import ThemeToggle from '@components/ThemeToggle.astro';
+
+interface Props {
+  /** Prefijo de los enlaces a la home ('/' en subpáginas). */
+  base?: string;
+  /** Marca «Servicios» como sección actual en subpáginas. */
+  subpage?: boolean;
+}
+
+const { base = '', subpage = false } = Astro.props as Props;
+const current = (href: string) => (subpage && href === '#servicios' ? 'true' : undefined);
 ---
 
 <header class="site-header">
   <div class="site-header__inner content-wrapper">
-    <a class="brand-mark" href="#inicio">
+    <a class="brand-mark" href={base || '#inicio'}>
       <span class="brand-mark__icon">{brand.initials}</span>
       <span class="brand-mark__text">{brand.name}</span>
     </a>
 
     <nav class="site-nav" aria-label="Navegacion principal">
       {navLinks.map((link) => (
-        <a href={link.href}>{link.label}</a>
+        <a href={`${base}${link.href}`} aria-current={current(link.href)}>{link.label}</a>
       ))}
     </nav>
 
     <ThemeToggle />
 
-    <a class="button button--compact site-header__cta" href={hero.primaryCta.href}>
+    <a class="button button--compact site-header__cta" href={`${base}${hero.primaryCta.href}`}>
       Consulta gratis
     </a>
 
@@ -31,9 +41,9 @@ import ThemeToggle from '@components/ThemeToggle.astro';
       </summary>
       <div class="mobile-menu__panel">
         {navLinks.map((link) => (
-          <a href={link.href}>{link.label}</a>
+          <a href={`${base}${link.href}`} aria-current={current(link.href)}>{link.label}</a>
         ))}
-        <a class="button" href={hero.primaryCta.href}>Consulta gratis</a>
+        <a class="button" href={`${base}${hero.primaryCta.href}`}>Consulta gratis</a>
       </div>
     </details>
   </div>

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+import { servicePages } from '@constants/home';
+import { serviceJsonLd } from '@constants/seo';
+
+export function getStaticPaths() {
+  return servicePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  image="/og-image.png"
+  imageAlt="C.P. y P. en D. Cirilo Reyes Cruz — Servicios contables, auditoría, fiscales y jurídicos"
+  jsonLd={serviceJsonLd(page)}
+>
+  <ServicePage page={page} />
+</BaseLayout>

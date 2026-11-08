@@ -1,6 +1,6 @@
 ---
 import SectionHeader from '@components/SectionHeader.astro';
-import { services } from '@constants/home';
+import { servicePages, services } from '@constants/home';
 ---
 
 <section id="servicios" class="section-block section-block--tinted">
@@ -24,6 +24,10 @@ import { services } from '@constants/home';
               <li>{point}</li>
             ))}
           </ul>
+          <a class="service-card__link" href={`/servicios/${servicePages.find((page) => page.serviceIndex === index)?.slug}/`}>
+            Ver más<span class="sr-only"> sobre {service.title}</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </article>
       ))}
     </div>

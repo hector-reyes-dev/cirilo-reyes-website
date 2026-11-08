@@ -1,0 +1,135 @@
+---
+import SiteHeader from '@components/SiteHeader.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import { about, address, contact, hours, servicePages, services, whatsappLink, whatsappPhone } from '@constants/home';
+import type { ServicePage } from '@constants/home';
+
+interface Props {
+  page: ServicePage;
+}
+
+const { page } = Astro.props as Props;
+const service = services[page.serviceIndex];
+const audience = about.paragraphs[1];
+const mapLink = contact.items.find((item) => item.link)?.link;
+const addressText = `${address.street}, C.P. ${address.postalCode}, ${address.locality}`;
+const telHref = `tel:${whatsappPhone.replace(/\s/g, '')}`;
+const others = servicePages.filter((candidate) => candidate.slug !== page.slug);
+---
+
+<SiteHeader base="/" subpage />
+<main id="contenido" class="service-page">
+  <div class="content-wrapper">
+    <nav class="breadcrumbs" aria-label="Migas de pan">
+      <ol>
+        <li><a href="/">Inicio</a></li>
+        <li aria-hidden="true" class="breadcrumbs__sep">›</li>
+        <li><a href="/#servicios">Servicios</a></li>
+        <li aria-hidden="true" class="breadcrumbs__sep">›</li>
+        <li aria-current="page">{service?.title}</li>
+      </ol>
+    </nav>
+
+    <section class="service-page__intro" aria-labelledby="titulo-servicio">
+      <h1 id="titulo-servicio">{page.h1}</h1>
+      <p>{page.intro}</p>
+      <a class="button button--primary" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+        {contact.submitLabel}<span class="sr-only"> (se abre en una pestaña nueva)</span>
+      </a>
+    </section>
+  </div>
+
+  <section class="service-block" aria-labelledby="que-incluye">
+    <div class="content-wrapper service-block__grid">
+      <h2 id="que-incluye"><span class="service-block__num" aria-hidden="true">01</span>Qué incluye</h2>
+      <ul class="service-list">
+        {service?.points.map((point) => <li>{point}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="service-block service-block--tinted" aria-labelledby="para-quien">
+    <div class="content-wrapper service-block__grid">
+      <h2 id="para-quien"><span class="service-block__num" aria-hidden="true">02</span>Para quién</h2>
+      <p class="service-audience">{audience}</p>
+    </div>
+  </section>
+
+  {page.faq.length > 0 && (
+    <section class="service-block" aria-labelledby="preguntas">
+      <div class="content-wrapper service-block__grid">
+        <h2 id="preguntas"><span class="service-block__num" aria-hidden="true">03</span>Preguntas frecuentes</h2>
+        <div class="faq">
+          {page.faq.map((item, index) => (
+            <details class="faq__item" open={index === 0}>
+              <summary>
+                <span>{item.question}</span>
+                <span class="faq__mark" aria-hidden="true"></span>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="service-block service-block--tinted" aria-labelledby="contacto-servicio">
+    <div class="content-wrapper service-block__grid">
+      <h2 id="contacto-servicio">
+        <span class="service-block__num" aria-hidden="true">{page.faq.length > 0 ? '04' : '03'}</span>Contacto
+      </h2>
+      <div>
+        <a class="button button--primary" href={whatsappLink} target="_blank" rel="noopener noreferrer">
+          {contact.submitLabel}<span class="sr-only"> (se abre en una pestaña nueva)</span>
+        </a>
+        <dl class="service-contact">
+          <div>
+            <dt>Teléfono / WhatsApp</dt>
+            <dd><a href={telHref}>{whatsappPhone}</a></dd>
+          </div>
+          <div>
+            <dt>Dirección</dt>
+            <dd>
+              {addressText}
+              {mapLink && (
+                <a class="service-contact__map" href={mapLink.href} target="_blank" rel="noopener noreferrer" aria-label={mapLink.ariaLabel}>
+                  {mapLink.label}
+                </a>
+              )}
+            </dd>
+          </div>
+          <div>
+            <dt>Horario</dt>
+            <dd>{hours.text}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-block" aria-labelledby="otros-servicios">
+    <div class="content-wrapper service-block__grid">
+      <h2 id="otros-servicios">
+        <span class="service-block__num" aria-hidden="true">{page.faq.length > 0 ? '05' : '04'}</span>Otros servicios
+      </h2>
+      <div>
+        <nav aria-label="Otros servicios">
+          <ul class="other-services">
+            {others.map((other) => (
+              <li>
+                <a href={`/servicios/${other.slug}/`}>
+                  <span class="other-services__icon" aria-hidden="true">{services[other.serviceIndex]?.icon}</span>
+                  <span class="other-services__title">{services[other.serviceIndex]?.title}</span>
+                  <span class="other-services__arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <a class="back-link" href="/"><span aria-hidden="true">←</span> Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+</main>
+<SiteFooter />

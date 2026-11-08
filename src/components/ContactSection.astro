@@ -18,6 +18,11 @@ import { contact, whatsappLink } from '@constants/home';
               <div>
                 <span>{item.label}</span>
                 <strong set:html={item.value.replace(/\n/g, '<br />')} />
+                {item.link && (
+                  <a class="contact-item__link" href={item.link.href} target="_blank" rel="noopener noreferrer" aria-label={item.link.ariaLabel}>
+                    {item.link.label}
+                  </a>
+                )}
               </div>
             </div>
           ))}

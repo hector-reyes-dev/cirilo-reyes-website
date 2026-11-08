@@ -848,6 +848,16 @@ textarea {
   text-transform: uppercase;
 }
 
+.contact-item__link {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: var(--color-blue-deep);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .contact-item strong {
   display: block;
   margin-top: 0.15rem;

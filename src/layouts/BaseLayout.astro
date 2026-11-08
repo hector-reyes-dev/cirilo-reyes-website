@@ -7,6 +7,7 @@ interface Props {
   image?: string;
   imageAlt?: string;
   canonical?: boolean;
+  jsonLd?: object;
 }
 
 const {
@@ -14,7 +15,8 @@ const {
   description = 'Asesoría integral preventiva para empresas que buscan rigor técnico y agilidad boutique.',
   image,
   imageAlt,
-  canonical = true
+  canonical = true,
+  jsonLd
 } = Astro.props as Props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
@@ -67,6 +69,7 @@ const imageUrl = image ? new URL(image, Astro.site).href : undefined;
     {imageUrl && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
     <meta name="twitter:card" content="summary_large_image" />
     {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
   <body class="min-h-screen bg-background text-foreground antialiased">
     <a href="#contenido" class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:rounded focus:px-4 focus:py-2">

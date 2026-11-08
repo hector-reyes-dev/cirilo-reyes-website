@@ -8,6 +8,7 @@ import AboutSection from '@components/AboutSection.astro';
 import ContactSection from '@components/ContactSection.astro';
 import SiteFooter from '@components/SiteFooter.astro';
 import { pageSeo } from '@constants/home';
+import { jsonLd } from '@constants/seo';
 ---
 
 <BaseLayout
@@ -15,6 +16,7 @@ import { pageSeo } from '@constants/home';
   description={pageSeo.description}
   image="/og-image.png"
   imageAlt="C.P. y P. en D. Cirilo Reyes Cruz — Servicios contables, auditoría, fiscales y jurídicos"
+  jsonLd={jsonLd}
 >
   <SiteHeader />
   <main id="contenido">

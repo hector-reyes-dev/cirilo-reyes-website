@@ -32,7 +32,28 @@ export type ContactItem = {
   icon: string;
   label: string;
   value: string;
+  link?: { href: string; label: string; ariaLabel: string };
 };
+
+export const address = {
+  street: 'Productos Químicos de México 15, Col. Vista Hermosa',
+  postalCode: '54080',
+  locality: 'Tlalnepantla de Baz',
+  region: 'Estado de México',
+  country: 'MX'
+};
+
+export const geo = { latitude: 19.5178364, longitude: -99.2231914 };
+
+// Fuente única del horario: el texto visible y el JSON-LD salen de aquí.
+export const hours = {
+  text: 'Lun - Sáb: 8:00 am - 6:00 pm',
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  opens: '08:00',
+  closes: '18:00'
+};
+
+export const mapUrl = 'https://maps.app.goo.gl/NDB7nZM3Jjhnsm9JA';
 
 export const pageSeo = {
   title: 'C.P. y P. en D. Cirilo Reyes Cruz | Servicios contables, auditoría, fiscales y jurídicos',
@@ -179,9 +200,18 @@ export const contact = {
   errorMessage: 'Por favor completa al menos tu nombre y correo.',
   successMessage: 'Listo. Se abrirá WhatsApp con tu mensaje preparado.',
   items: [
-    { icon: '📍', label: 'Ubicación', value: 'Tlalnepantla de Baz, Estado de México' },
+    {
+      icon: '📍',
+      label: 'Ubicación',
+      value: `${address.street},\nC.P. ${address.postalCode}, ${address.locality}, ${address.region}`,
+      link: {
+        href: mapUrl,
+        label: 'Ver en el mapa',
+        ariaLabel: 'Ver en el mapa la ubicación del despacho (se abre en una pestaña nueva)'
+      }
+    },
     { icon: '📞', label: 'Teléfono / WhatsApp', value: whatsappPhone },
     { icon: '✉️', label: 'Correo electrónico', value: 'reyescc1962@gmail.com' },
-    { icon: '🕐', label: 'Horario de atención', value: 'Lun - Vie: 9:00 am - 7:00 pm\nSáb: 9:00 am - 1:00 pm' }
+    { icon: '🕐', label: 'Horario de atención', value: hours.text }
   ] satisfies ContactItem[]
 };

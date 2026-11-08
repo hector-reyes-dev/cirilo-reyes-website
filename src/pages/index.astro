@@ -8,9 +8,10 @@ import AboutSection from '@components/AboutSection.astro';
 import ContactSection from '@components/ContactSection.astro';
 import SiteFooter from '@components/SiteFooter.astro';
 import { pageSeo } from '@constants/home';
+import { jsonLd } from '@constants/seo';
 ---
 
-<BaseLayout title={pageSeo.title} description={pageSeo.description}>
+<BaseLayout title={pageSeo.title} description={pageSeo.description} jsonLd={jsonLd}>
   <SiteHeader />
   <main id="contenido">
     <HeroSection />

@@ -462,6 +462,14 @@ textarea {
   text-transform: uppercase;
 }
 
+.section-tag {
+  color: #7c601b;
+}
+
+:root[data-theme="dark"] .section-tag {
+  color: var(--theme-accent);
+}
+
 .eyebrow {
   display: inline-flex;
   border-radius: 999px;

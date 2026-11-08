@@ -1380,6 +1380,15 @@ textarea {
   text-underline-offset: 0.2em;
 }
 
+/* Objetivo táctil de 44 px sin mover el layout: el área extra se compensa con
+   margen negativo, así el texto queda donde estaba. */
+.service-contact__tel {
+  display: inline-flex !important;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-block: calc((1.5em - 2.75rem) / 2);
+}
+
 .service-contact__map {
   display: flex !important;
   align-items: center;

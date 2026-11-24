@@ -1,7 +1,7 @@
 ---
 import SiteHeader from '@components/SiteHeader.astro';
 import SiteFooter from '@components/SiteFooter.astro';
-import { about, address, contact, hours, servicePages, services, whatsappLink, whatsappPhone } from '@constants/home';
+import { about, contact, hours, servicePages, services, whatsappLink, whatsappPhone } from '@constants/home';
 import type { ServicePage } from '@constants/home';
 
 interface Props {
@@ -11,8 +11,7 @@ interface Props {
 const { page } = Astro.props as Props;
 const service = services[page.serviceIndex];
 const audience = about.paragraphs[1];
-const mapLink = contact.items.find((item) => item.link)?.link;
-const addressText = `${address.street}, C.P. ${address.postalCode}, ${address.locality}`;
+const location = contact.items.find((item) => item.label === 'Ubicación');
 const telHref = `tel:${whatsappPhone.replace(/\s/g, '')}`;
 const others = servicePages.filter((candidate) => candidate.slug !== page.slug);
 ---
@@ -89,15 +88,8 @@ const others = servicePages.filter((candidate) => candidate.slug !== page.slug);
             <dd><a class="service-contact__tel" href={telHref}>{whatsappPhone}</a></dd>
           </div>
           <div>
-            <dt>Dirección</dt>
-            <dd>
-              {addressText}
-              {mapLink && (
-                <a class="service-contact__map" href={mapLink.href} target="_blank" rel="noopener noreferrer" aria-label={mapLink.ariaLabel}>
-                  {mapLink.label}
-                </a>
-              )}
-            </dd>
+            <dt>{location?.label}</dt>
+            <dd set:html={location?.value.replace(/\n/g, '<br />')} />
           </div>
           <div>
             <dt>Horario</dt>

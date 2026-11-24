@@ -32,28 +32,21 @@ export type ContactItem = {
   icon: string;
   label: string;
   value: string;
-  link?: { href: string; label: string; ariaLabel: string };
 };
 
 export const address = {
-  street: 'Productos Químicos de México 15, Col. Vista Hermosa',
-  postalCode: '54080',
   locality: 'Tlalnepantla de Baz',
   region: 'Estado de México',
   country: 'MX'
 };
 
-export const geo = { latitude: 19.5178364, longitude: -99.2231914 };
-
 // Fuente única del horario: el texto visible y el JSON-LD salen de aquí.
 export const hours = {
-  text: 'Lun - Sáb: 8:00 am - 6:00 pm',
-  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  text: 'Lun - Vie: 8:00 am - 6:00 pm',
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
   opens: '08:00',
   closes: '18:00'
 };
-
-export const mapUrl = 'https://maps.app.goo.gl/NDB7nZM3Jjhnsm9JA';
 
 export const pageSeo = {
   title: 'C.P. y P. en D. Cirilo Reyes Cruz | Servicios contables, auditoría, fiscales y jurídicos',
@@ -81,7 +74,7 @@ export const hero = {
   title: 'Soluciones contables, auditoría, fiscales y jurídicas a tu medida',
   highlighted: 'contables, auditoría, fiscales',
   description:
-    'Más de 30 años de experiencia asesorando personas físicas y morales en materia contable, auditoría, fiscal y 10 años de experiencia en materia legal. Tu tranquilidad financiera, nuestra prioridad.',
+    'Más de 30 años de experiencia asesorando a personas físicas y morales en materia contable, auditoría y fiscal, junto con asesoría jurídica empresarial. Tu tranquilidad financiera, nuestra prioridad.',
   primaryCta: {
     label: 'Solicitar consulta',
     href: '#contacto'
@@ -170,14 +163,6 @@ export type ServicePage = {
   faq: FaqItem[];
 };
 
-// TODO(Cirilo): validar los textos de las páginas de servicio antes de publicar (el PR queda en borrador).
-// TODO(Cirilo): preguntas omitidas hasta que responda; NO se renderizan:
-//   contabilidad «¿Cómo empiezo?» (primer paso real: llamada, WhatsApp, documentos que se piden).
-//   fiscal «¿Qué es la planeación fiscal?» (definición en 1–2 frases conforme a la legislación vigente).
-//   jurídico «¿Qué pasa si necesito defensa fiscal o un amparo?» (alcance real y si se canaliza a abogado titulado).
-// TODO(Cirilo): validar respuestas mostradas: auditoría (alcance y entregables), fiscal (redacción del
-//   requerimiento; condiciones de devoluciones y compensaciones), jurídico (alcance de la constitución y quién firma).
-// TODO(Cirilo): jurídico, confirmar alcance y si algún trámite se canaliza a abogado titulado (no se muestra).
 export const servicePages: ServicePage[] = [
   {
     slug: 'contabilidad',
@@ -192,11 +177,17 @@ export const servicePages: ServicePage[] = [
       {
         question: '¿Qué incluye la contabilidad mensual?',
         answer:
-          'Contabilidad general y de costos, estados financieros mensuales y anuales, conciliaciones bancarias, nómina y CFDI de nómina y control de activos fijos.'
+          'Depende del alcance acordado. En el servicio integral incluye contabilidad general y de costos, estados financieros mensuales y anuales, conciliaciones bancarias, nómina con CFDI y control de activos fijos. En un esquema básico, puede cubrir únicamente la presentación de declaraciones.'
       },
       {
         question: '¿Atienden a personas físicas y a empresas?',
-        answer: 'Sí: personas físicas, morales, emprendedores y empresas consolidadas.'
+        answer:
+          'Sí. Atendemos tanto a personas físicas (incluidos regímenes de actividad empresarial y RESICO) como a empresas y personas morales, desde emprendedores hasta negocios consolidados.'
+      },
+      {
+        question: '¿Cómo empiezo a trabajar con ustedes?',
+        answer:
+          'El primer paso es enviarnos un mensaje por WhatsApp para revisar tu caso. Para iniciar el alta o diagnóstico, normalmente se requiere tu firma electrónica (e.firma) y/o contraseña del SAT, según el servicio que necesites.'
       }
     ]
   },
@@ -212,9 +203,19 @@ export const servicePages: ServicePage[] = [
     faq: [
       {
         question: '¿Qué revisa una auditoría de cumplimiento?',
-        answer: 'Obligaciones fiscales ante el SAT, IMSS e INFONAVIT y cumplimiento laboral ante STPS.'
+        answer:
+          'Realizamos la revisión integral de los aspectos fiscales del contribuyente ante el SAT, así como el cumplimiento de obligaciones ante el IMSS, INFONAVIT y en materia laboral ante la STPS.'
       },
-      { question: '¿Qué recibo al terminar?', answer: 'Reportes claros para la toma de decisiones.' }
+      {
+        question: '¿Qué recibo al terminar la auditoría?',
+        answer:
+          'Al concluir la revisión se entrega un informe o dictamen de cumplimiento con los hallazgos y puntos relevantes para la toma de decisiones de tu empresa.'
+      },
+      {
+        question: '¿Cuánto tiempo tarda una auditoría?',
+        answer:
+          'La duración depende del tamaño de la empresa y de que la información a revisar se entregue de forma oportuna y completa.'
+      }
     ]
   },
   {
@@ -230,11 +231,17 @@ export const servicePages: ServicePage[] = [
       {
         question: '¿Qué hago si el SAT me envía un requerimiento?',
         answer:
-          'No lo ignores: el propio documento indica el plazo para responder. Reúne el documento y contáctanos para revisarlo y atenderlo a tiempo.'
+          'No lo ignores: el propio documento indica el plazo para responder. Reúne el requerimiento y contáctanos por WhatsApp para revisarlo juntos y atenderlo a tiempo con orientación profesional.'
       },
       {
         question: '¿Pueden ayudarme con devoluciones o compensaciones de impuestos?',
-        answer: 'Sí, es parte de los servicios fiscales.'
+        answer:
+          'Sí. Gestionamos tanto devoluciones como compensaciones de saldos a favor, incluyendo IVA e ISR, conforme a las disposiciones fiscales vigentes.'
+      },
+      {
+        question: '¿Qué es la planeación fiscal?',
+        answer:
+          'Es proyectar tu futuro fiscal de forma ordenada y conforme a la ley para cumplir adecuadamente con tus obligaciones y no arriesgar tu patrimonio.'
       }
     ]
   },
@@ -250,7 +257,18 @@ export const servicePages: ServicePage[] = [
     faq: [
       {
         question: '¿Pueden constituir mi empresa?',
-        answer: 'Constitución y disolución de sociedades forma parte del servicio.'
+        answer:
+          'Sí. Gestionamos la constitución y disolución de sociedades: en el caso de Sociedades por Acciones Simplificadas (SAS) el trámite se realiza en línea, y en el resto de las sociedades mediante formalización ante notario o corredor público.'
+      },
+      {
+        question: '¿Qué pasa si necesito defensa fiscal o un amparo?',
+        answer:
+          'Nos encargamos de estructurar los medios de defensa fiscal y, de manera excepcional, los amparos. Cuando el trámite requiere la firma de un abogado titulado, se coordina con uno para su presentación.'
+      },
+      {
+        question: '¿Qué incluye la asesoría laboral?',
+        answer:
+          'Incluye asesoría laboral integral para empresas y patrones: elaboración y revisión de contratos, cálculo de finiquitos y liquidaciones, y atención de demandas laborales.'
       }
     ]
   }
@@ -293,7 +311,7 @@ export const contact = {
   intro: 'Contáctanos hoy mismo. La primera consulta es sin costo y sin compromiso.',
   heading: 'Información de contacto',
   description:
-    'Estamos listos para atenderte de manera presencial o en línea. Escríbenos o llámanos y con gusto resolveremos tus dudas.',
+    'Te atendemos de lunes a viernes por mensaje de WhatsApp con respuesta oportuna, o de forma presencial en punto a convenir de común acuerdo.',
   formTitle: 'Envíanos un mensaje',
   submitLabel: 'Enviar mensaje por WhatsApp',
   errorMessage: 'Por favor completa al menos tu nombre y correo.',
@@ -302,12 +320,7 @@ export const contact = {
     {
       icon: '📍',
       label: 'Ubicación',
-      value: `${address.street},\nC.P. ${address.postalCode}, ${address.locality}, ${address.region}`,
-      link: {
-        href: mapUrl,
-        label: 'Ver en el mapa',
-        ariaLabel: 'Ver en el mapa la ubicación del despacho (se abre en una pestaña nueva)'
-      }
+      value: 'Tlalnepantla de Baz, Estado de México\nAtención por WhatsApp o presencial en punto a convenir'
     },
     { icon: '📞', label: 'Teléfono / WhatsApp', value: whatsappPhone },
     { icon: '✉️', label: 'Correo electrónico', value: 'reyescc1962@gmail.com' },

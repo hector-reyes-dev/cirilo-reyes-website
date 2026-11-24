@@ -1,4 +1,4 @@
-import { address, brand, contact, geo, hours, mapUrl, pageSeo, services, whatsappPhone } from './home';
+import { address, brand, contact, hours, pageSeo, services, whatsappPhone } from './home';
 import type { ServicePage } from './home';
 
 const SITE = 'https://ciriloreyes.com/';
@@ -18,14 +18,10 @@ export const jsonLd = {
       description: pageSeo.description,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: address.street,
-        postalCode: address.postalCode,
         addressLocality: address.locality,
         addressRegion: address.region,
         addressCountry: address.country
       },
-      geo: { '@type': 'GeoCoordinates', latitude: geo.latitude, longitude: geo.longitude },
-      hasMap: mapUrl,
       openingHoursSpecification: {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: hours.days,
